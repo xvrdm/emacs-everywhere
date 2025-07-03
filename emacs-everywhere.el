@@ -171,6 +171,7 @@ when applicable."
 
 (defcustom emacs-everywhere-final-hooks
   '(emacs-everywhere-convert-org-to-gfm
+    emacs-everywhere-convert-org-to-slack
     emacs-everywhere-remove-trailing-whitespace)
   "Hooks to be run just before content is copied."
   :type 'hook
@@ -795,6 +796,11 @@ return windowTitle"))
                    (string-match-p pattern class))
                  emacs-everywhere-markdown-apps))))
 
+(defun emacs-everywhere-slack-p ()
+  "Return t if the original window is recognised as slack."
+  (let ((title (emacs-everywhere-app-title emacs-everywhere-current-app)))
+        (string= title "Slack")))
+
 (defun emacs-everywhere-major-mode-org-or-markdown ()
   "Use markdow-mode, when window is recognised as markdown-flavoured.
 Otherwise use `org-mode'."
@@ -822,6 +828,16 @@ Should end in a newline to avoid interfering with the buffer content."
     (let (org-export-show-temporary-export-buffer)
       (require 'ox-md)
       (org-export-to-buffer (if (featurep 'ox-gfm) 'gfm 'md) (current-buffer)))))
+
+(defun emacs-everywhere-convert-org-to-slack ()
+  "When appropriate, convert org buffer to slack syntax."
+  (when (and (eq major-mode 'org-mode)
+             (emacs-everywhere-slack-p))
+    (goto-char (point-min))
+    (insert emacs-everywhere-org-export-options)
+    (let (org-export-show-temporary-export-buffer)
+      (require 'ox-slack)
+      (org-export-to-buffer 'text (current-buffer)))))
 
 (defun emacs-everywhere--required-executables ()
   "Return a list of cons cells, each giving a required executable and its purpose."
