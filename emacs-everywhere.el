@@ -123,7 +123,7 @@ When nil, nothing is executed, and pasting is not attempted."
 
 (defcustom emacs-everywhere-markdown-windows
   '("Reddit" "Stack Exchange" "Stack Overflow" ; Sites
-    "Discord" "Element" "Slack" "HedgeDoc" "HackMD" "Zulip" ; Web Apps
+    "Discord" "Element" "HedgeDoc" "HackMD" "Zulip" ; Web Apps
     "Pull Request" "Issue" "Comparing .*\\.\\.\\.") ; Github
   "For use with `emacs-everywhere-markdown-p'.
 Patterns which are matched against the window title."
@@ -131,7 +131,7 @@ Patterns which are matched against the window title."
   :group 'emacs-everywhere)
 
 (defcustom emacs-everywhere-markdown-apps
-  '("Discord" "Element" "Fractal" "NeoChat" "Slack")
+  '("Discord" "Element" "Fractal" "NeoChat")
   "For use with `emacs-everywhere-markdown-p'.
 Patterns which are matched against the app name."
   :type '(rep string)
