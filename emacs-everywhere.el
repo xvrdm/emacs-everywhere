@@ -837,7 +837,7 @@ Should end in a newline to avoid interfering with the buffer content."
     (insert emacs-everywhere-org-export-options)
     (let (org-export-show-temporary-export-buffer)
       (require 'ox-slack)
-      (org-export-to-buffer 'text (current-buffer)))))
+      (org-export-to-buffer (if (featurep 'ox-slack) 'slack 'md) (current-buffer)))))
 
 (defun emacs-everywhere--required-executables ()
   "Return a list of cons cells, each giving a required executable and its purpose."
