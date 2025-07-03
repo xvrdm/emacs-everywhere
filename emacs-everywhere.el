@@ -798,8 +798,8 @@ return windowTitle"))
 
 (defun emacs-everywhere-slack-p ()
   "Return t if the original window is recognised as slack."
-  (let ((title (emacs-everywhere-app-title emacs-everywhere-current-app)))
-        (string= title "Slack")))
+  (let ((class (emacs-everywhere-app-class emacs-everywhere-current-app)))
+        (string= class "Slack")))
 
 (defun emacs-everywhere-major-mode-org-or-markdown ()
   "Use markdow-mode, when window is recognised as markdown-flavoured.
